@@ -56,7 +56,7 @@ extern "C" {
     CDIO_DISC_MODE_CD_I         /**< CD-i. */
   } discmode_t;
 
-  extern const char *discmode2str[];
+  const char *discmode2str[];
 
   /**
     Read cdtext information for a cdtext_t object.
@@ -69,7 +69,7 @@ extern "C" {
             or NULL if problems occur or CD-Text information does not exist.
             A non-NULL return value must be freed with cdio_free() when done.
   */
-  uint8_t * cdio_get_cdtext_raw (CdIo_t *p_cdio);
+  CDIO_EXTERN uint8_t * cdio_get_cdtext_raw (CdIo_t *p_cdio);
 
   /**
     Return a pointer to the cdtext_t object which is attached to a CdIo_t
@@ -82,26 +82,26 @@ extern "C" {
     @return a pointer to the attached cdtext_t object or NULL if problems
             occur or if CD-Text information does not exist.
   */
-  cdtext_t *cdio_get_cdtext (CdIo_t *p_cdio);
+  CDIO_EXTERN struct cdtext_s *cdio_get_cdtext (CdIo_t *p_cdio);
 
   /**
     Get disc mode - the kind of CD (CD-DA, CD-ROM mode 1, CD-MIXED, etc.
     that we've got. The notion of "CD" is extended a little to include
     DVD's.
   */
-  discmode_t cdio_get_discmode (CdIo_t *p_cdio);
+  CDIO_EXTERN discmode_t cdio_get_discmode (CdIo_t *p_cdio);
 
   /**
     Get the lsn of the end of the CD
 
     @return the lsn. On error 0 or CDIO_INVALD_LSN.
   */
-  lsn_t cdio_get_disc_last_lsn(const CdIo_t *p_cdio);
+  CDIO_EXTERN lsn_t cdio_get_disc_last_lsn(const CdIo_t *p_cdio);
 
   /**
     Return the Joliet level recognized for p_cdio.
   */
-  uint8_t cdio_get_joliet_level(const CdIo_t *p_cdio);
+  CDIO_EXTERN uint8_t cdio_get_joliet_level(const CdIo_t *p_cdio);
 
   /**
     Get the media catalog number (MCN) from the CD.
@@ -113,7 +113,7 @@ extern "C" {
     when done with it.
 
   */
-  char * cdio_get_mcn (const CdIo_t *p_cdio);
+  CDIO_EXTERN char * cdio_get_mcn (const CdIo_t *p_cdio);
 
   /**
     Get the number of tracks on the CD.
@@ -121,17 +121,17 @@ extern "C" {
     @return the number of tracks, or CDIO_INVALID_TRACK if there is
     an error.
   */
-  track_t cdio_get_num_tracks (const CdIo_t *p_cdio);
+  CDIO_EXTERN track_t cdio_get_num_tracks (const CdIo_t *p_cdio);
 
   /**
     Return true if discmode is some sort of CD.
   */
-  bool cdio_is_discmode_cdrom (discmode_t discmode);
+  CDIO_EXTERN bool cdio_is_discmode_cdrom (discmode_t discmode);
 
   /**
     Return true if discmode is some sort of DVD.
   */
-  bool cdio_is_discmode_dvd (discmode_t discmode);
+  CDIO_EXTERN bool cdio_is_discmode_dvd (discmode_t discmode);
 
   /**
       cdio_stat_size is deprecated. @see cdio_get_disc_last_lsn

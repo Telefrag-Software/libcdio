@@ -292,7 +292,7 @@ is_cdrom_win32(const char drive_letter) {
 
   Return 0 if command completed successfully.
  */
-static int
+static driver_return_code_t
 run_mmc_cmd_win32( void *p_user_data, unsigned int i_timeout_ms,
 		   unsigned int i_cdb, const mmc_cdb_t *p_cdb,
 		   cdio_mmc_direction_t e_direction,
@@ -422,7 +422,7 @@ read_data_sectors_win32 (void *p_user_data, void *p_buf, lsn_t i_lsn,
    Reads a single mode1 sector from cd device into data starting from
    lsn. Returns 0 if no error.
  */
-static int
+static driver_return_code_t
 read_mode1_sector_win32 (void *p_user_data, void *p_buf, lsn_t lsn,
 			 bool b_form2)
 {
@@ -454,13 +454,13 @@ read_mode1_sector_win32 (void *p_user_data, void *p_buf, lsn_t lsn,
    from lsn.
    Returns 0 if no error.
  */
-static int
+static driver_return_code_t
 read_mode1_sectors_win32 (void *p_user_data, void *p_buf, lsn_t lsn,
 			  bool b_form2, unsigned int nblocks)
 {
   _img_private_t *p_env = p_user_data;
   int i;
-  int retval;
+  driver_return_code_t retval;
 
   for (i = 0; i < nblocks; i++) {
     if (b_form2) {
@@ -484,7 +484,7 @@ read_mode1_sectors_win32 (void *p_user_data, void *p_buf, lsn_t lsn,
    Reads a single mode2 sector from cd device into data starting
    from lsn. Returns 0 if no error.
  */
-static int
+static driver_return_code_t
 read_mode2_sector_win32 (void *p_user_data, void *data, lsn_t lsn,
 			 bool b_form2)
 {
@@ -506,7 +506,7 @@ read_mode2_sector_win32 (void *p_user_data, void *data, lsn_t lsn,
   p_env->gen.ioctls_debugged++;
 
   if ( p_env->hASPI ) {
-    int ret;
+    driver_return_code_t ret;
     ret = read_mode2_sector_aspi(p_user_data, buf, lsn, 1);
     if( ret != 0 ) return ret;
     if (b_form2)
@@ -524,12 +524,12 @@ read_mode2_sector_win32 (void *p_user_data, void *data, lsn_t lsn,
    from lsn.
    Returns 0 if no error.
  */
-static int
+static driver_return_code_t
 read_mode2_sectors_win32 (void *p_user_data, void *data, lsn_t lsn,
 			  bool b_form2, unsigned int i_blocks)
 {
   int i;
-  int retval;
+  driver_return_code_t retval;
   unsigned int blocksize = b_form2 ? M2RAW_SECTOR_SIZE : CDIO_CD_FRAMESIZE;
 
   for (i = 0; i < i_blocks; i++) {
@@ -555,7 +555,7 @@ get_disc_last_lsn_win32 (void *p_user_data)
 /*!
   Set the key "arg" to "value" in source device.
 */
-static int
+static driver_return_code_t
 set_arg_win32 (void *p_user_data, const char key[], const char value[])
 {
   _img_private_t *p_env = p_user_data;
@@ -934,12 +934,12 @@ cdio_get_default_device_win32(void)
 /*!
   Return the underlying device HANDLE.
  */
-static int
+static driver_return_code_t
 get_device_fd_win32(void *p_user_data) {
   _img_private_t *p_env = p_user_data;
   /* File handles are guaranteed to be 32 bit even on 64 bit Windows, so this
    * will always fit in an int. */
-  return (int)p_env->h_device_handle;
+  return (driver_return_code_t)p_env->h_device_handle;
 }
 #endif
 

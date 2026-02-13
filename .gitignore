@@ -7,6 +7,7 @@
 *~
 .deps
 .dirstamp
+include/cdio/version.h
 /.python-version
 /ChangeLog
 /Makefile
@@ -41,3 +42,4 @@
 /stamp-h1
 /test-driver
 /tmp
+build/*

@@ -231,7 +231,7 @@ bool read_toc_aspi (_img_private_t *env);
 
   Return 0 if command completed successfully.
  */
-int run_mmc_cmd_aspi( void *p_user_data, 
+driver_return_code_t run_mmc_cmd_aspi( void *p_user_data, 
 		      unsigned int i_timeout,
 		      unsigned int i_cdb, 
 		      const mmc_cdb_t * p_cdb,

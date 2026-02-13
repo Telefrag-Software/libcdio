@@ -187,7 +187,9 @@
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
-#define inline __inline
+//#define inline __inline
 
 /* Some parts of libcdio reference alloca(), which isn't portable */
 #define alloca  _alloca
+
+#define HAVE_STDARG_H 1

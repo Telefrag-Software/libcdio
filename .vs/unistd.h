@@ -17,7 +17,8 @@
 /* mode_t is used in the libcdio headers */
 #ifndef _MODE_T_DEFINED
 #define _MODE_T_DEFINED
-typedef unsigned short mode_t;
+// Defined in cdio.h instead.
+//typedef unsigned short mode_t;
 #endif /* _MODE_T_DEFINED */
 
 /* ssize_t is also not available (copy/paste from MinGW) */

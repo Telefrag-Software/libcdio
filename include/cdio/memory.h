@@ -29,10 +29,12 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#include "cdio.h"
+
   /*!
     Free the passed pointer.
   */
-  void cdio_free(void *p_memory);
+  CDIO_EXTERN void cdio_free(void *p_memory);
 
 #ifdef __cplusplus
 }

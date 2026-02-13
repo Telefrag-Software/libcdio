@@ -559,7 +559,7 @@ typedef struct mmc_cdb_s {
    @param p_volume volume parameters retrieved
    @return \p DRIVER_OP_SUCCESS if we ran the command ok.
 */
-driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
+CDIO_EXTERN driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
                                            mmc_audio_volume_t *p_volume);
 
   /**
@@ -568,7 +568,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
      @param p_cdio the CD object to be acted upon.
      @param p_subchannel place for returned subchannel information
   */
-    driver_return_code_t
+    CDIO_EXTERN driver_return_code_t
     mmc_audio_read_subchannel (CdIo_t *p_cdio,
                            /*out*/ cdio_subchannel_t *p_subchannel);
 
@@ -576,7 +576,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     Return a string containing the name of the audio state as returned from
     the Q_SUBCHANNEL.
   */
-  const char *mmc_audio_state2str( uint8_t i_audio_state );
+  CDIO_EXTERN const char *mmc_audio_state2str( uint8_t i_audio_state );
 
   /**
      Get the block size used in read requests, via MMC (e.g. READ_10,
@@ -584,14 +584,14 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
      @param p_cdio the CD object to be acted upon.
      @return the blocksize if > 0; error if <= 0
   */
-  int mmc_get_blocksize ( CdIo_t *p_cdio );
+  CDIO_EXTERN int mmc_get_blocksize ( CdIo_t *p_cdio );
 
   /**
     Return the length in bytes of the Command Descriptor
     Buffer (CDB) for a given MMC command. The length will be
     either 6, 10, or 12.
   */
-  uint8_t mmc_get_cmd_len(uint8_t mmc_cmd);
+  CDIO_EXTERN uint8_t mmc_get_cmd_len(uint8_t mmc_cmd);
 
   /**
     Get the lsn of the end of the CD
@@ -599,7 +599,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @param p_cdio the CD object to be acted upon.
     @return the lsn. On error return CDIO_INVALID_LSN.
   */
-  lsn_t mmc_get_disc_last_lsn( const CdIo_t *p_cdio );
+  CDIO_EXTERN lsn_t mmc_get_disc_last_lsn( const CdIo_t *p_cdio );
 
   /**
     Return the discmode as reported by the MMC Read (FULL) \p TOC
@@ -610,7 +610,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     at http://www.t10.org/ftp/t10/drafts/mmc/mmc-r10a.pdf See
     especially tables 72, 73 and 75.
   */
-  discmode_t mmc_get_discmode( const CdIo_t *p_cdio );
+  CDIO_EXTERN discmode_t mmc_get_discmode( const CdIo_t *p_cdio );
 
 
   typedef enum {
@@ -626,7 +626,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @param p_cdio the CD object to be acted upon.
     @return MMC level supported by the device.
   */
-  cdio_mmc_level_t mmc_get_drive_mmc_cap(CdIo_t *p_cdio);
+  CDIO_EXTERN cdio_mmc_level_t mmc_get_drive_mmc_cap(CdIo_t *p_cdio);
 
 
   /**
@@ -636,16 +636,16 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @param s location to store DVD information.
     @return the DVD discmode.
   */
-  discmode_t mmc_get_dvd_struct_physical ( const CdIo_t *p_cdio,
+  CDIO_EXTERN discmode_t mmc_get_dvd_struct_physical ( const CdIo_t *p_cdio,
                                            cdio_dvd_struct_t *s);
 
   /**
     Find out if media tray is open or closed.
     @param p_cdio the CD object to be acted upon.
     @return 1 if media is open, 0 if closed. Error
-    return codes are the same as \p driver_return_code_t.
+    return codes are the same as \p CDIO_EXTERN.
   */
-  int mmc_get_tray_status ( const CdIo_t *p_cdio );
+  CDIO_EXTERN int mmc_get_tray_status ( const CdIo_t *p_cdio );
 
   /**
     Get the CD-ROM hardware info via an MMC \p INQUIRY command.
@@ -655,7 +655,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @return true if we were able to get hardware info, false if we had
     an error.
   */
-  bool mmc_get_hwinfo ( const CdIo_t *p_cdio,
+  CDIO_EXTERN bool mmc_get_hwinfo ( const CdIo_t *p_cdio,
                         /* out*/ cdio_hwinfo_t *p_hw_info );
 
 
@@ -663,9 +663,9 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     Find out if media has changed since the last call.
     @param p_cdio the CD object to be acted upon.
     @return 1 if media has changed since last call, 0 if not. Error
-    return codes are the same as \p driver_return_code_t.
+    return codes are the same as \p CDIO_EXTERN.
   */
-  int mmc_get_media_changed(const CdIo_t *p_cdio);
+  CDIO_EXTERN int mmc_get_media_changed(const CdIo_t *p_cdio);
 
   /**
     Get the media catalog number (\p MCN) from the CD via MMC.
@@ -678,7 +678,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     when done with it.
 
   */
-  char * mmc_get_mcn(const CdIo_t *p_cdio);
+  CDIO_EXTERN char * mmc_get_mcn(const CdIo_t *p_cdio);
 
   /**
     Get the international standard recording code (\p ISRC) of the track via MMC.
@@ -692,7 +692,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     when done with it.
 
   */
-  char * mmc_get_track_isrc(const CdIo_t *p_cdio, track_t i_track);
+  CDIO_EXTERN char * mmc_get_track_isrc(const CdIo_t *p_cdio, track_t i_track);
 
   /**
     Read cdtext information for a cdtext_t object.
@@ -725,7 +725,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     Note: the caller must free the returned memory.
 
   */
-  uint8_t * mmc_read_cdtext (const CdIo_t *p_cdio);
+  CDIO_EXTERN uint8_t * mmc_read_cdtext (const CdIo_t *p_cdio);
 
   /**
     Report if CD-ROM has a particular kind of interface (ATAPI, SCSCI, ...)
@@ -735,7 +735,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @param e_interface
     @return true if we have the interface and false if not.
   */
-  bool_3way_t mmc_have_interface(CdIo_t *p_cdio,
+  CDIO_EXTERN bool_3way_t mmc_have_interface(CdIo_t *p_cdio,
                                  cdio_mmc_feature_interface_t e_interface );
 
 
@@ -757,7 +757,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
       @param i_blocks number of blocks to read
 
   */
-  driver_return_code_t mmc_read_data_sectors ( CdIo_t *p_cdio, void *p_buf,
+  CDIO_EXTERN driver_return_code_t mmc_read_data_sectors ( CdIo_t *p_cdio, void *p_buf,
                                                lsn_t i_lsn,
                                                uint16_t i_blocksize,
                                                uint32_t i_blocks );
@@ -766,7 +766,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
       Read sectors using SCSI-MMC GPCMD_READ_CD.
       Can read only up to 25 blocks.
   */
-  driver_return_code_t mmc_read_sectors ( const CdIo_t *p_cdio, void *p_buf,
+  CDIO_EXTERN driver_return_code_t mmc_read_sectors ( const CdIo_t *p_cdio, void *p_buf,
                                           lsn_t i_lsn,  int read_sector_type,
                                           uint32_t i_blocks);
 
@@ -785,7 +785,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
 
     @return 0 if command completed successfully.
   */
-  driver_return_code_t
+  CDIO_EXTERN driver_return_code_t
   mmc_run_cmd( const CdIo_t *p_cdio, unsigned int i_timeout_ms,
                const mmc_cdb_t *p_cdb,
                cdio_mmc_direction_t e_direction, unsigned int i_buf,
@@ -810,7 +810,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
 
     @return 0 if command completed successfully.
   */
-  driver_return_code_t
+  CDIO_EXTERN driver_return_code_t
   mmc_run_cmd_len( const CdIo_t *p_cdio, unsigned int i_timeout_ms,
                    const mmc_cdb_t *p_cdb, unsigned int i_cdb,
                    cdio_mmc_direction_t e_direction, unsigned int i_buf,
@@ -833,13 +833,13 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
       @return number of valid bytes in sense, 0 when no sense
               bytes are available, and less than 0 when there is an internal error.
   */
-  int mmc_last_cmd_sense ( const CdIo_t *p_cdio,
+  CDIO_EXTERN int mmc_last_cmd_sense ( const CdIo_t *p_cdio,
                            cdio_mmc_request_sense_t **pp_sense);
 
   /**
     Set the block size for subsequent read requests, via MMC.
   */
-  driver_return_code_t mmc_set_blocksize ( const CdIo_t *p_cdio,
+  CDIO_EXTERN driver_return_code_t mmc_set_blocksize ( const CdIo_t *p_cdio,
                                            uint16_t i_blocksize);
 
   /**
@@ -849,7 +849,7 @@ driver_return_code_t mmc_audio_get_volume (CdIo_t *p_cdio,  /*out*/
     @return string name of command
 
   */
-  const char *mmc_cmd2str(uint8_t command);
+  CDIO_EXTERN const char *mmc_cmd2str(uint8_t command);
 
 
 
