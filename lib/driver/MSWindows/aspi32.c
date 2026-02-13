@@ -486,7 +486,7 @@ init_aspi (_img_private_t *env)
 
   We return 0 if command completed successfully.
  */
-int
+driver_return_code_t
 run_mmc_cmd_aspi( void *p_user_data, unsigned int i_timeout_ms,
                   unsigned int i_cdb, const mmc_cdb_t * p_cdb,
                   cdio_mmc_direction_t e_direction,

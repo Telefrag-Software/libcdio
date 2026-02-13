@@ -568,7 +568,7 @@ run_mmc_cmd_win32ioctl( void *p_user_data,
   return rc;
 }
 #else
-int
+driver_return_code_t
 run_mmc_cmd_win32ioctl( void *p_user_data,
                         unsigned int u_timeout_ms,
                         unsigned int u_cdb, const mmc_cdb_t * p_cdb,

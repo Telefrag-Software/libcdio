@@ -240,7 +240,7 @@ extern "C" {
     it was \p DRIVER_UNKNOWN or \p DRIVER_DEVICE; If this is \p NULL, we won't
     report back the driver used.
   */
-  driver_return_code_t cdio_close_tray (const char *psz_drive,
+  CDIO_EXTERN driver_return_code_t cdio_close_tray (const char *psz_drive,
                                         /*in/out*/ driver_id_t *p_driver_id);
 
   /**
@@ -248,7 +248,7 @@ extern "C" {
 
     @return the string information about \p drc
   */
-  const char *cdio_driver_errmsg(driver_return_code_t drc);
+  CDIO_EXTERN const char *cdio_driver_errmsg(driver_return_code_t drc);
 
   /**
     Eject media in CD drive if there is a routine to do so.
@@ -256,7 +256,7 @@ extern "C" {
     @param p_cdio the CD object to be acted upon.
     If the CD is ejected \p *p_cdio is free'd and p_cdio set to \p NULL.
   */
-  driver_return_code_t cdio_eject_media (CdIo_t **p_cdio);
+  CDIO_EXTERN driver_return_code_t cdio_eject_media (CdIo_t **p_cdio);
 
   /**
     Eject media in CD drive if there is a routine to do so.
@@ -264,7 +264,7 @@ extern "C" {
     @param psz_drive the name of the device to be acted upon.
     If NULL is given as the drive, we'll use the default driver device.
   */
-  driver_return_code_t cdio_eject_media_drive (const char *psz_drive);
+  CDIO_EXTERN driver_return_code_t cdio_eject_media_drive (const char *psz_drive);
 
   /**
     Free device list returned by cdio_get_devices or
@@ -276,7 +276,7 @@ extern "C" {
     @see cdio_get_devices(), and cdio_get_devices_with_cap().
 
   */
-  void cdio_free_device_list (char * device_list[]);
+  CDIO_EXTERN void cdio_free_device_list (char * device_list[]);
 
   /**
     Get the default CD device.
@@ -292,7 +292,7 @@ extern "C" {
     there is no media in it and it is possible for this routine to return
     NULL even though there may be a hardware CD-ROM.
   */
-  char * cdio_get_default_device (const CdIo_t *p_cdio);
+  CDIO_EXTERN char * cdio_get_default_device (const CdIo_t *p_cdio);
 
   /**
     Return a string containing the default CD device if none is specified.
@@ -301,7 +301,7 @@ extern "C" {
 
     \p NULL is returned if we couldn't get a default device.
   */
-  char * cdio_get_default_device_driver (/*in/out*/ driver_id_t *p_driver_id);
+  CDIO_EXTERN char * cdio_get_default_device_driver (/*in/out*/ driver_id_t *p_driver_id);
 
   /** Return an array of device names. If you want a specific
     devices for a driver, give that device. If you want hardware
@@ -314,7 +314,7 @@ extern "C" {
     there is no media in it and it is possible for this routine to return
     \p NULL even though there may be a hardware CD-ROM.
   */
-  char ** cdio_get_devices (driver_id_t driver_id);
+  CDIO_EXTERN char ** cdio_get_devices (driver_id_t driver_id);
 
   /**
      Get an array of device names in search_devices that have at least
@@ -352,7 +352,7 @@ extern "C" {
      after dereferencing the the value is NULL. This also means nothing
      was found.
   */
-  char ** cdio_get_devices_with_cap (/*in*/ char *ppsz_search_devices[],
+  CDIO_EXTERN char ** cdio_get_devices_with_cap (/*in*/ char *ppsz_search_devices[],
                                      cdio_fs_anal_t capabilities, bool b_any);
 
   /**
@@ -361,7 +361,7 @@ extern "C" {
      and then *open* it afterwards. Giving the driver back facilitates this,
      and speeds things up for libcdio as well.
   */
-  char ** cdio_get_devices_with_cap_ret (/*in*/ char* ppsz_search_devices[],
+  CDIO_EXTERN char ** cdio_get_devices_with_cap_ret (/*in*/ char* ppsz_search_devices[],
                                          cdio_fs_anal_t capabilities,
                                          bool b_any,
                                          /*out*/ driver_id_t *p_driver_id);
@@ -374,7 +374,7 @@ extern "C" {
      things up for libcdio as well.
    */
 
-  char ** cdio_get_devices_ret (/*in/out*/ driver_id_t *p_driver_id);
+  CDIO_EXTERN char ** cdio_get_devices_ret (/*in/out*/ driver_id_t *p_driver_id);
 
   /**
      Get the what kind of device we've got.
@@ -388,7 +388,7 @@ extern "C" {
      there is no media in it. In this situation capabilities will show up as
      \p NULL even though there isa hardware CD-ROM.
   */
-  void cdio_get_drive_cap (const CdIo_t *p_cdio,
+  CDIO_EXTERN void cdio_get_drive_cap (const CdIo_t *p_cdio,
                            cdio_drive_read_cap_t  *p_read_cap,
                            cdio_drive_write_cap_t *p_write_cap,
                            cdio_drive_misc_cap_t  *p_misc_cap);
@@ -402,7 +402,7 @@ extern "C" {
      there is no media in it. In this situation capabilities will show up as
      \p NULL even though there isa hardware CD-ROM.
   */
-  void cdio_get_drive_cap_dev (const char *device,
+  CDIO_EXTERN void cdio_get_drive_cap_dev (const char *device,
                                cdio_drive_read_cap_t  *p_read_cap,
                                cdio_drive_write_cap_t *p_write_cap,
                                cdio_drive_misc_cap_t  *p_misc_cap);
@@ -415,12 +415,12 @@ extern "C" {
      @return a string with driver name or NULL if CdIo_t is NULL (we
      haven't initialized a specific device.
   */
-  const char * cdio_get_driver_name (const CdIo_t *p_cdio);
+  CDIO_EXTERN const char * cdio_get_driver_name (const CdIo_t *p_cdio);
 
   /**
      Return a string name for the \p driver_id.
   */
-  const char * cdio_get_driver_name_from_id (driver_id_t driver_id);
+  CDIO_EXTERN const char * cdio_get_driver_name_from_id (driver_id_t driver_id);
 
 
   /**
@@ -432,13 +432,13 @@ extern "C" {
 
      @return the driver id..
   */
-  driver_id_t cdio_get_driver_id (const CdIo_t *p_cdio);
+  CDIO_EXTERN driver_id_t cdio_get_driver_id (const CdIo_t *p_cdio);
 
   /**
     Get the CD-ROM hardware info via a SCSI MMC INQUIRY command.
     False is returned if we had an error getting the information.
   */
-  bool cdio_get_hwinfo ( const CdIo_t *p_cdio,
+  CDIO_EXTERN bool cdio_get_hwinfo ( const CdIo_t *p_cdio,
                          /*out*/ cdio_hwinfo_t *p_hw_info );
 
 
@@ -449,7 +449,7 @@ extern "C" {
      @param p_cdio the CD object to be acted upon.
      @param i_last_session pointer to the session number to be returned.
   */
-  driver_return_code_t cdio_get_last_session (CdIo_t *p_cdio,
+  CDIO_EXTERN driver_return_code_t cdio_get_last_session (CdIo_t *p_cdio,
                                               /*out*/ lsn_t *i_last_session);
 
   /**
@@ -458,15 +458,15 @@ extern "C" {
       @param p_cdio the CD object to be acted upon.
 
       @return 1 if media has changed since last call, 0 if not. Error
-      return codes are the same as \p driver_return_code_t
+      return codes are the same as \p CDIO_EXTERN
    */
-  int cdio_get_media_changed(CdIo_t *p_cdio);
+  CDIO_EXTERN int cdio_get_media_changed(CdIo_t *p_cdio);
 
   /** True if CD-ROM understand ATAPI commands. */
-  bool_3way_t cdio_have_atapi (CdIo_t *p_cdio);
+  CDIO_EXTERN bool_3way_t cdio_have_atapi (CdIo_t *p_cdio);
 
   /** Like cdio_have_xxx but uses an enumeration instead. */
-  bool cdio_have_driver (driver_id_t driver_id);
+  CDIO_EXTERN bool cdio_have_driver (driver_id_t driver_id);
 
   /**
      Free any resources associated with \p p_cdio. Call this when done
@@ -474,7 +474,7 @@ extern "C" {
 
     @param p_cdio the CD object to eliminated.
    */
-  void cdio_destroy (CdIo_t *p_cdio);
+  CDIO_EXTERN void cdio_destroy (CdIo_t *p_cdio);
 
   /**
     Get a string describing driver_id.
@@ -482,7 +482,7 @@ extern "C" {
     @param driver_id the driver you want the description for
     @return a string of driver description
   */
-  const char *cdio_driver_describe (driver_id_t driver_id);
+  CDIO_EXTERN const char *cdio_driver_describe (driver_id_t driver_id);
 
   /**
      Sets up to read from place specified by \p psz_source and
@@ -494,7 +494,7 @@ extern "C" {
      @return the cdio object or NULL on error or no device.  If NULL
      is given as the source, we'll use the default driver device.
   */
-  CdIo_t * cdio_open (const char *psz_source, driver_id_t driver_id);
+  CDIO_EXTERN CdIo_t * cdio_open (const char *psz_source, driver_id_t driver_id);
 
   /**
      Sets up to read from place specified by psz_source, driver_id and
@@ -508,7 +508,7 @@ extern "C" {
 
      @return the cdio object or \p NULL on error or no device.
   */
-  CdIo_t * cdio_open_am (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am (const char *psz_source,
                          driver_id_t driver_id, const char *psz_access_mode);
 
   /**
@@ -517,7 +517,7 @@ extern "C" {
 
      @return the cdio object or \p NULL on error or no device.
    */
-  CdIo_t * cdio_open_bincue (const char *psz_cue_name);
+  CDIO_EXTERN CdIo_t * cdio_open_bincue (const char *psz_cue_name);
 
   /**
      Set up BIN/CUE CD disk-image for reading. Source is the .bin or
@@ -525,7 +525,7 @@ extern "C" {
 
      @return the cdio object or \p NULL on error or no device..
    */
-  CdIo_t * cdio_open_am_bincue (const char *psz_cue_name,
+  CDIO_EXTERN CdIo_t * cdio_open_am_bincue (const char *psz_cue_name,
                                 const char *psz_access_mode);
 
   /**
@@ -533,14 +533,14 @@ extern "C" {
 
      @return the cdio object or \p NULL on error or no device.
    */
-  CdIo_t * cdio_open_cdrdao (const char *psz_toc_name);
+  CDIO_EXTERN CdIo_t * cdio_open_cdrdao (const char *psz_toc_name);
 
   /**
      Set up cdrdao CD disk-image for reading. Source is the .toc file
 
      @return the cdio object or NULL on error or no device..
   */
-  CdIo_t * cdio_open_am_cdrdao (const char *psz_toc_name,
+  CDIO_EXTERN CdIo_t * cdio_open_am_cdrdao (const char *psz_toc_name,
                                 const char *psz_access_mode);
 
   /**
@@ -549,27 +549,18 @@ extern "C" {
 
      @return the cdio object or \p NULL on error or no device.
   */
-  char * cdio_get_default_device_bincue(void);
+  CDIO_EXTERN char * cdio_get_default_device_bincue(void);
 
-  char **cdio_get_devices_bincue(void);
+  CDIO_EXTERN char **cdio_get_devices_bincue(void);
 
   /**
      @return string containing the default CUE file that would be
      used when none is specified. \p NULL is returned on error or there
      is no device.
    */
-  char * cdio_get_default_device_cdrdao(void);
+  CDIO_EXTERN char * cdio_get_default_device_cdrdao(void);
 
-  char **cdio_get_devices_cdrdao(void);
-
-  /**
-     Set up CD-ROM for reading. The device_name is
-     the some sort of device name.
-
-     @return the cdio object for subsequent operations.
-     \p NULL on error or there is no driver for a some sort of hardware CD-ROM.
-  */
-  CdIo_t * cdio_open_cd (const char *device_name);
+  CDIO_EXTERN char **cdio_get_devices_cdrdao(void);
 
   /**
      Set up CD-ROM for reading. The device_name is
@@ -578,7 +569,16 @@ extern "C" {
      @return the cdio object for subsequent operations.
      \p NULL on error or there is no driver for a some sort of hardware CD-ROM.
   */
-  CdIo_t * cdio_open_am_cd (const char *psz_device,
+  CDIO_EXTERN CdIo_t * cdio_open_cd (const char *device_name);
+
+  /**
+     Set up CD-ROM for reading. The device_name is
+     the some sort of device name.
+
+     @return the cdio object for subsequent operations.
+     \p NULL on error or there is no driver for a some sort of hardware CD-ROM.
+  */
+  CDIO_EXTERN CdIo_t * cdio_open_am_cd (const char *psz_device,
                             const char *psz_access_mode);
 
   /**
@@ -587,7 +587,7 @@ extern "C" {
      @return the cdio object for subsequent operations.
      \p NULL on error.
    */
-  CdIo_t * cdio_open_cue (const char *cue_name);
+  CDIO_EXTERN CdIo_t * cdio_open_cue (const char *cue_name);
 
   /**
      Set up CD-ROM for reading using the AIX driver. The device_name is
@@ -598,7 +598,7 @@ extern "C" {
 
      @see cdio_open()
    */
-  CdIo_t * cdio_open_am_aix (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_aix (const char *psz_source,
                              const char *psz_access_mode);
 
   /**
@@ -610,7 +610,7 @@ extern "C" {
 
      @see cdio_open()
    */
-  CdIo_t * cdio_open_aix (const char *psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_aix (const char *psz_source);
 
   /**
      Return a string containing the default device name that the AIX
@@ -621,7 +621,7 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  char * cdio_get_default_device_aix(void);
+  CDIO_EXTERN char * cdio_get_default_device_aix(void);
 
   /**
      Return a list of all of the CD-ROM devices that the AIX driver
@@ -631,7 +631,7 @@ extern "C" {
      if there is no media in it and it is possible for this routine to
      return \p NULL even though there may be a hardware CD-ROM.
    */
-  char **cdio_get_devices_aix(void);
+  CDIO_EXTERN char **cdio_get_devices_aix(void);
 
   /**
      Set up CD-ROM for reading using the FreeBSD driver. The
@@ -641,7 +641,7 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  CdIo_t * cdio_open_freebsd (const char *paz_psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_freebsd (const char *paz_psz_source);
 
   /**
      Set up CD-ROM for reading using the FreeBSD driver. The
@@ -651,7 +651,7 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  CdIo_t * cdio_open_am_freebsd (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_freebsd (const char *psz_source,
                                  const char *psz_access_mode);
 
   /**
@@ -660,13 +660,13 @@ extern "C" {
 
      NULL is returned on error or there is no CD-ROM device.
    */
-  char * cdio_get_default_device_freebsd(void);
+  CDIO_EXTERN char * cdio_get_default_device_freebsd(void);
 
   /**
      Return a list of all of the CD-ROM devices that the FreeBSD
      driver can find.
    */
-  char **cdio_get_devices_freebsd(void);
+  CDIO_EXTERN char **cdio_get_devices_freebsd(void);
 
   /**
      Set up CD-ROM for reading using the GNU/Linux driver. The
@@ -679,7 +679,7 @@ extern "C" {
      there is no media in it and it is possible for this routine to return
      NULL even though there may be a hardware CD-ROM.
    */
-  CdIo_t * cdio_open_linux (const char *psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_linux (const char *psz_source);
 
   /**
      Set up CD-ROM for reading using the GNU/Linux driver. The
@@ -688,7 +688,7 @@ extern "C" {
      @return the cdio object for subsequent operations.
      NULL on error or there is no GNU/Linux driver.
    */
-  CdIo_t * cdio_open_am_linux (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_linux (const char *psz_source,
                                const char *access_mode);
 
   /**
@@ -704,13 +704,13 @@ extern "C" {
 
      @see cdio_open_cd, cdio_open
    */
-  char * cdio_get_default_device_linux(void);
+  CDIO_EXTERN char * cdio_get_default_device_linux(void);
 
   /**
      Return a list of all of the CD-ROM devices that the GNU/Linux
      driver can find.
    */
-  char **cdio_get_devices_linux(void);
+  CDIO_EXTERN char **cdio_get_devices_linux(void);
 
   /**
      Set up CD-ROM for reading using the Sun Solaris driver. The
@@ -719,7 +719,7 @@ extern "C" {
      @return the cdio object for subsequent operations.
      \p NULL on error or there is no Solaris driver.
    */
-  CdIo_t * cdio_open_solaris (const char *psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_solaris (const char *psz_source);
 
   /**
      Set up CD-ROM for reading using the Sun Solaris driver. The
@@ -728,7 +728,7 @@ extern "C" {
      @return the cdio object for subsequent operations.
      \p NULL on error or there is no Solaris driver.
    */
-  CdIo_t * cdio_open_am_solaris (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_solaris (const char *psz_source,
                                  const char *psz_access_mode);
 
   /**
@@ -744,13 +744,13 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  char * cdio_get_default_device_solaris(void);
+  CDIO_EXTERN char * cdio_get_default_device_solaris(void);
 
   /**
      Return a list of all of the CD-ROM devices that the Solaris
      driver can find.
    */
-  char **cdio_get_devices_solaris(void);
+  CDIO_EXTERN char **cdio_get_devices_solaris(void);
 
   /**
      Set up CD-ROM for reading using the Apple OSX driver. The
@@ -764,7 +764,7 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  CdIo_t * cdio_open_osx (const char *psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_osx (const char *psz_source);
 
   /**
      Set up CD-ROM for reading using the Apple OSX driver. The
@@ -774,7 +774,7 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  CdIo_t * cdio_open_am_osx (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_osx (const char *psz_source,
                              const char *psz_access_mode);
 
   /**
@@ -786,13 +786,13 @@ extern "C" {
      there is no media in it and it is possible for this routine to return
      NULL even though there may be a hardware CD-ROM.
    */
-  char * cdio_get_default_device_osx(void);
+  CDIO_EXTERN char * cdio_get_default_device_osx(void);
 
   /**
      Return a list of all of the CD-ROM devices that the OSX driver
      can find.
    */
-  char **cdio_get_devices_osx(void);
+  CDIO_EXTERN char **cdio_get_devices_osx(void);
 
   /**
      Set up CD-ROM for reading using the Microsoft Windows driver. The
@@ -802,7 +802,7 @@ extern "C" {
      there is no media in it and it is possible for this routine to return
      NULL even though there may be a hardware CD-ROM.
    */
-  CdIo_t * cdio_open_win32 (const char *psz_source);
+  CDIO_EXTERN CdIo_t * cdio_open_win32 (const char *psz_source);
 
   /**
      Set up CD-ROM for reading using the Microsoft Windows driver. The
@@ -810,7 +810,7 @@ extern "C" {
 
      NULL is returned on error or there is no Microsoft Windows driver.
    */
-  CdIo_t * cdio_open_am_win32 (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_am_win32 (const char *psz_source,
                                const char *psz_access_mode);
 
   /**
@@ -824,17 +824,9 @@ extern "C" {
 
      @see cdio_open_cd(), cdio_open()
    */
-  char * cdio_get_default_device_win32(void);
+  CDIO_EXTERN char * cdio_get_default_device_win32(void);
 
-  char **cdio_get_devices_win32(void);
-
-  /**
-     Set up CD-ROM for reading using the Nero driver. The device_name
-     is the some sort of device name.
-
-     @return true on success; NULL on error or there is no Nero driver.
-   */
-  CdIo_t * cdio_open_nrg (const char *psz_source);
+  CDIO_EXTERN char **cdio_get_devices_win32(void);
 
   /**
      Set up CD-ROM for reading using the Nero driver. The device_name
@@ -842,7 +834,15 @@ extern "C" {
 
      @return true on success; NULL on error or there is no Nero driver.
    */
-  CdIo_t * cdio_open_am_nrg (const char *psz_source,
+  CDIO_EXTERN CdIo_t * cdio_open_nrg (const char *psz_source);
+
+  /**
+     Set up CD-ROM for reading using the Nero driver. The device_name
+     is the some sort of device name.
+
+     @return true on success; NULL on error or there is no Nero driver.
+   */
+  CDIO_EXTERN CdIo_t * cdio_open_am_nrg (const char *psz_source,
                              const char *psz_access_mode);
 
   /**
@@ -853,9 +853,9 @@ extern "C" {
      @return string containing the default device. NULL on error or
      there is no CD-ROM device.
    */
-  char * cdio_get_default_device_nrg(void);
+  CDIO_EXTERN char * cdio_get_default_device_nrg(void);
 
-  char **cdio_get_devices_nrg(void);
+  CDIO_EXTERN char **cdio_get_devices_nrg(void);
 
   /**
 
@@ -865,7 +865,7 @@ extern "C" {
      @return the corresponding CUE file if bin_name is a BIN file or
      \p NULL if not a BIN file.
   */
-  char *cdio_is_binfile(const char *bin_name);
+  CDIO_EXTERN char *cdio_is_binfile(const char *bin_name);
 
   /**
      Determine if cue_name is the cue sheet for a CDRWIN CD disk image.
@@ -873,7 +873,7 @@ extern "C" {
      @return corresponding BIN file if cue_name is a CDRWIN cue file or
      \p NULL if not a CUE file.
   */
-  char *cdio_is_cuefile(const char *cue_name);
+  CDIO_EXTERN char *cdio_is_cuefile(const char *cue_name);
 
   /**
     Determine if psg_nrg is a Nero CD disc image.
@@ -882,7 +882,7 @@ extern "C" {
     @return true if psz_nrg is a Nero NRG image or false
     if not a NRG image.
   */
-  bool cdio_is_nrg(const char *psz_nrg);
+  CDIO_EXTERN bool cdio_is_nrg(const char *psz_nrg);
 
   /**
      Determine if psz_toc is a TOC file for a cdrdao CD disc image.
@@ -891,7 +891,7 @@ extern "C" {
      @return true if toc_name is a cdrdao TOC file or false
      if not a TOC file.
   */
-  bool cdio_is_tocfile(const char *psz_toc);
+  CDIO_EXTERN bool cdio_is_tocfile(const char *psz_toc);
 
   /**
      Determine if psz_source refers to a real hardware CD-ROM.
@@ -902,12 +902,12 @@ extern "C" {
      @return true if psz_source is a device; If false is returned we
      could have a CD disk image.
   */
-  bool cdio_is_device(const char *psz_source, driver_id_t driver_id);
+  CDIO_EXTERN bool cdio_is_device(const char *psz_source, driver_id_t driver_id);
 
   /**
     Set the blocksize for subsequent reads.
   */
-  driver_return_code_t cdio_set_blocksize ( const CdIo_t *p_cdio,
+  CDIO_EXTERN driver_return_code_t cdio_set_blocksize ( const CdIo_t *p_cdio,
                                             int i_blocksize );
 
   /**
@@ -926,7 +926,7 @@ extern "C" {
 
       @see mmc_set_speed() and mmc_set_drive_speed()
   */
-  driver_return_code_t cdio_set_speed ( const CdIo_t *p_cdio,
+  CDIO_EXTERN driver_return_code_t cdio_set_speed ( const CdIo_t *p_cdio,
                                         int i_drive_speed );
 
   /**
@@ -936,7 +936,7 @@ extern "C" {
      retrieve @return the value associated with "key", \p NULL if \p
      p_cdio is \p NULL, or "key" does not exist.
   */
-  const char * cdio_get_arg (const CdIo_t *p_cdio,  const char key[]);
+  CDIO_EXTERN const char * cdio_get_arg (const CdIo_t *p_cdio,  const char key[]);
 
   /**
      Set the arg "key" with "value" in "p_cdio".
@@ -945,13 +945,13 @@ extern "C" {
      @param key the key to set
      @param value the value to assocaiate with key
   */
-  driver_return_code_t cdio_set_arg (CdIo_t *p_cdio, const char key[],
+  CDIO_EXTERN driver_return_code_t cdio_set_arg (CdIo_t *p_cdio, const char key[],
                                      const char value[]);
 
   /**
     Initialize CD Reading and control routines. Should be called first.
   */
-  bool cdio_init(void);
+  CDIO_EXTERN bool cdio_init(void);
 
   /**
      Get access to the underlying device file descriptor of the driver.
@@ -960,7 +960,7 @@ extern "C" {
       @return the file descriptor or DRIVER_OP_UNSUPPORTED if the device
       does not use file descriptors.
   */
-  int cdio_get_device_fd (CdIo_t *p_cdio);
+  CDIO_EXTERN int cdio_get_device_fd (CdIo_t *p_cdio);
 
 #ifdef __cplusplus
 }
