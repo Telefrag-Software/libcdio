@@ -140,6 +140,7 @@ set(LIBRARY_SOURCE_FILES
 	lib/driver/mmc/mmc_private.h
 	lib/driver/mmc/mmc_util.c
 	lib/iso9660/iso9660.c
+	lib/iso9660/iso9660_fs.c
 	lib/iso9660/iso9660_private.h
 	lib/iso9660/rock.c
 	lib/iso9660/xa.c
