@@ -347,7 +347,7 @@ CDIO_EXTERN int parse_rock_ridge_stat(iso9660_dir_t *de,
   /*!
     Returns POSIX mode bitstring for a given file.
   */
-  CDIO_EXTERN mode_t
+  CDIO_EXTERN cdio_mode_t
   iso9660_get_posix_filemode_from_rock(const iso_rock_statbuf_t *rr);
 
 /*!

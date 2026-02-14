@@ -845,10 +845,10 @@ iso9660_pathtable_init (void *pt)
 /*!
   Returns POSIX mode bitstring for a given file.
 */
-mode_t
+cdio_mode_t
 iso9660_get_posix_filemode(const iso9660_stat_t *p_iso_dirent)
 {
-  mode_t mode = 0;
+  cdio_mode_t mode = 0;
 
 #ifdef HAVE_ROCK
   if (yep == p_iso_dirent->rr.b3_rock) {

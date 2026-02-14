@@ -59,7 +59,7 @@ extern "C" {
   /**  
     Returns a POSIX mode for a given p_udf_dirent.
   */
-  CDIO_EXTERN mode_t udf_get_posix_filemode(const udf_dirent_t *p_udf_dirent);
+  CDIO_EXTERN cdio_mode_t udf_get_posix_filemode(const udf_dirent_t *p_udf_dirent);
 
   /**
     Return the next subdirectory. 

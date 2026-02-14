@@ -35,7 +35,7 @@
    according to the file mode BITS.  */
 
 static void
-setst (mode_t bits, char *chars)
+setst (cdio_mode_t bits, char *chars)
 {
 #ifdef S_ISUID
   if (bits & S_ISUID)
@@ -86,7 +86,7 @@ setst (mode_t bits, char *chars)
    '?' for any other file type.  */
 
 static char
-ftypelet (mode_t bits)
+ftypelet (cdio_mode_t bits)
 {
 #ifdef S_ISBLK
   if (S_ISBLK (bits))
@@ -182,7 +182,7 @@ ftypelet (mode_t bits)
 	'T' if the file is sticky but not executable.  */
 
 char *
-udf_mode_string (mode_t i_mode, char *psz_str)
+udf_mode_string (cdio_mode_t i_mode, char *psz_str)
 {
   psz_str[ 0] = ftypelet (i_mode);
   psz_str[ 1] = i_mode & S_IRUSR ? 'r' : '-';

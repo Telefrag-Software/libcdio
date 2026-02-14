@@ -503,8 +503,8 @@ iso9660_get_rock_attr_str(posix_mode_t st_mode)
 /*!
   Returns POSIX mode bitstring for a given file.
 */
-mode_t
+cdio_mode_t
 iso9660_get_posix_filemode_from_rock(const iso_rock_statbuf_t *rr)
 {
-  return (mode_t) rr->st_mode;
+  return (cdio_mode_t) rr->st_mode;
 }

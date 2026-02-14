@@ -47,11 +47,11 @@ udf_enum1_t              debug_udf_enum1;
 /*!
   Returns POSIX mode bitstring for a given file.
 */
-mode_t 
+cdio_mode_t 
 udf_get_posix_filemode(const udf_dirent_t *p_udf_dirent) 
 {
   udf_file_entry_t udf_fe;
-  mode_t mode = 0;
+  cdio_mode_t mode = 0;
 
   if (udf_get_file_entry(p_udf_dirent, &udf_fe)) {
     uint32_t i_perms;

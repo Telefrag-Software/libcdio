@@ -46,6 +46,12 @@
 #  define CDIO_EXTERN
 #endif
 
+#if defined(_WIN32)
+  typedef unsigned short cdio_mode_t;
+#else
+  typedef mode_t cdio_mode_t;
+#endif // _WIN32
+
 #include <cdio/version.h>
 #include <cdio/types.h>
 #include <cdio/sector.h>

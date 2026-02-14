@@ -185,7 +185,7 @@ extern "C" {
         otherwise.
         'T' if the file is sticky but not executable.  */
 
-    CDIO_EXTERN char *udf_mode_string (mode_t i_mode, char *psz_str);
+    CDIO_EXTERN char *udf_mode_string (cdio_mode_t i_mode, char *psz_str);
 
     CDIO_EXTERN bool udf_get_lba(const udf_file_entry_t *p_udf_fe, 
                      /*out*/ uint32_t *start, /*out*/ uint32_t *end);

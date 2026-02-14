@@ -1149,7 +1149,7 @@ CDIO_EXTERN lsn_t iso9660_get_dir_extent(const iso9660_dir_t *p_idr);
   /*!
     Returns a POSIX mode for a given p_iso_dirent.
   */
-  CDIO_EXTERN mode_t iso9660_get_posix_filemode(const iso9660_stat_t *p_iso_dirent);
+  CDIO_EXTERN cdio_mode_t iso9660_get_posix_filemode(const iso9660_stat_t *p_iso_dirent);
 
   /*!
     Return a string containing the preparer id with trailing
