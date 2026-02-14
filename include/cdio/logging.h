@@ -48,7 +48,7 @@ typedef enum {
  * is desired. This is used by the internal default log handler, but
  * it could be use by applications which provide their own log handler.
  */
-CDIO_EXTERN cdio_log_level_t cdio_loglevel_default;
+extern cdio_log_level_t cdio_loglevel_default;
 
 /**
  * This type defines the signature of a log handler.  For every
@@ -70,7 +70,7 @@ typedef void (*cdio_log_handler_t) (cdio_log_level_t level,
  * @param level   The log level.
  * @param message The log message.
  */
-CDIO_EXTERN void cdio_default_log_handler(cdio_log_level_t level, const char message[]);
+extern void cdio_default_log_handler(cdio_log_level_t level, const char message[]);
 
 /**
  * Set a custom log handler for libcdio.  The return value is the log
