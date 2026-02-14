@@ -1816,7 +1816,6 @@ iso9660_stat_t *
 #if defined(__GNUC__) && !defined(__DARWIN_C_ANSI)
 iso9660_find_fs_lsn(CdIo_t *p_cdio, lsn_t i_lsn) __attribute__ ((alias ("iso9660_fs_find_lsn")));
 #elif defined(_MSC_VER)
-iso9660_stat_t *
 iso9660_find_fs_lsn(CdIo_t *p_cdio, lsn_t i_lsn)
 {
     return iso9660_fs_find_lsn(p_cdio, i_lsn);
