@@ -190,14 +190,15 @@ endif()
 
 if(NOT BUILD_SHARED_LIBS)
 	target_compile_definitions(${LIBRARY_NAME}
-		PRIVATE
+		PUBLIC
 			CDIO_STATICLIB
 	)
 endif()
 
 target_compile_definitions(${LIBRARY_NAME}
-	PRIVATE
+	PUBLIC
 		HAVE_CONFIG_H
+	PRIVATE
 		_CRT_SECURE_NO_WARNINGS
 		_CRT_NONSTDC_NO_DEPRECATE
 )
