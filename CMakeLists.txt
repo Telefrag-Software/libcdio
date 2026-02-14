@@ -125,6 +125,10 @@ set(LIBRARY_SOURCE_FILES
 	lib/driver/track.c
 	lib/driver/utf8.c
 	lib/driver/util.c
+	lib/driver/FreeBSD/freebsd.c
+	lib/driver/FreeBSD/freebsd.h
+	lib/driver/FreeBSD/freebsd_cam.c
+	lib/driver/FreeBSD/freebsd_ioctl.c
 	lib/driver/image/bincue.c
 	lib/driver/image/cdrdao.c
 	lib/driver/image/nrg.c
