@@ -49,6 +49,7 @@
 #if defined(_WIN32)
   typedef unsigned short cdio_mode_t;
 #else
+  #include <sys/types.h>
   typedef mode_t cdio_mode_t;
 #endif // _WIN32
 

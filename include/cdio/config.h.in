@@ -1,0 +1,239 @@
+/* config.h for general compilation  */
+
+/* compiler does lsbf in struct bitfields */
+#undef BITFIELD_LSBF
+
+/* Define 1 if you are compiling using cygwin */
+#undef CYGWIN
+
+/* what to put between the brackets for empty arrays */
+#define EMPTY_ARRAY_SIZE @EMPTY_ARRAY_SIZE@
+
+/* Define 1 if you have BSDI-type CD-ROM support */
+#undef HAVE_BSDI_CDROM
+
+/* Define to 1 if you have the `bzero' function. */
+#undef HAVE_BZERO
+
+/* Define this if you have libcddb installed */
+#undef HAVE_CDDB
+
+/* Define to 1 if you have the <CoreFoundation/CFBase.h> header file. */
+#undef HAVE_COREFOUNDATION_CFBASE_H
+
+/* Define 1 if you have Darwin OS X-type CD-ROM support */
+#undef HAVE_DARWIN_CDROM
+
+/* Define if time.h defines extern long timezone and int daylight vars. */
+#cmakedefine HAVE_DAYLIGHT
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <dvd.h> header file. */
+#undef HAVE_DVD_H
+
+/* Define to 1 if you have the <errno.h> header file. */
+#cmakedefine01 HAVE_ERRNO_H
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#cmakedefine01 HAVE_FCNTL_H
+
+/* Define 1 if you have FreeBSD CD-ROM support */
+#undef HAVE_FREEBSD_CDROM
+
+/* Define to 1 if you have the <glob.h> header file. */
+#cmakedefine01 HAVE_GLOB_H
+
+/* Define if you have the iconv() function. */
+#cmakedefine HAVE_ICONV
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#cmakedefine01 HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <IOKit/IOKitLib.h> header file. */
+#undef HAVE_IOKIT_IOKITLIB_H
+
+/* Supports ISO _Pragma() macro */
+#cmakedefine HAVE_ISOC99_PRAGMA
+
+/* Define 1 if you want ISO-9660 Joliet extension support. You must have also
+   libiconv installed to get Joliet extension support. */
+#cmakedefine HAVE_JOLIET
+
+/* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
+#cmakedefine HAVE_LANGINFO_CODESET
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBNSL
+
+/* Define to 1 if you have the `socket' library (-lsocket). */
+#undef HAVE_LIBSOCKET
+
+/* Define 1 if you have Linux-type CD-ROM support */
+#cmakedefine01 HAVE_LINUX_CDROM
+
+/* Define to 1 if you have the <linux/cdrom.h> header file. */
+#cmakedefine01 HAVE_LINUX_CDROM_H
+
+/* Define 1 if timeout is in cdrom_generic_command struct */
+#cmakedefine01 HAVE_LINUX_CDROM_TIMEOUT
+
+/* Define to 1 if you have the <linux/version.h> header file. */
+#cmakedefine01 HAVE_LINUX_VERSION_H
+
+/* Define to 1 if you have the `memcpy' function. */
+#cmakedefine01 HAVE_MEMCPY
+
+/* Define to 1 if you have the <memory.h> header file. */
+#cmakedefine01 HAVE_MEMORY_H
+
+/* Define to 1 if you have the `memset' function. */
+#cmakedefine01 HAVE_MEMSET
+
+/* Define to 1 if you have the Windows SCSI layer. */
+#undef HAVE_NTDDSCSI_H
+
+/* Define to 1 if you have the Windows CD-ROM layer. */
+#undef HAVE_NTDDCDRM_H
+
+/* Define to 1 if you have the `snprintf' function. */
+#cmakedefine01 HAVE_SNPRINTF
+
+/* Define 1 if you have Solaris CD-ROM support */
+#undef HAVE_SOLARIS_CDROM
+
+/* Define to 1 if you have the <stdbool.h> header file. */
+#cmakedefine01 HAVE_STDBOOL_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#cmakedefine01 HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#cmakedefine01 HAVE_STDIO_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#cmakedefine01 HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#cmakedefine01 HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#cmakedefine01 HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/cdio.h> header file. */
+#undef HAVE_SYS_CDIO_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#cmakedefine01 HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#cmakedefine01 HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#cmakedefine01 HAVE_SYS_TYPES_H
+
+/* Define if struct tm has the tm_gmtoff member. */
+#cmakedefine HAVE_TM_GMTOFF
+
+/* Define if time.h defines extern extern char *tzname[2] variable */
+#cmakedefine HAVE_TZNAME
+
+/* Define to 1 if you have the `tzset' function. */
+#cmakedefine01 HAVE_TZSET
+
+/* Define if you have an extern long timenzone variable. */
+#cmakedefine HAVE_TIMEZONE_VAR
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#cmakedefine HAVE_UNISTD_H
+
+/* Define this if you have libvcdinfo installed */
+#undef HAVE_VCDINFO
+
+/* Define to 1 if you have the `vsnprintf' function. */
+#cmakedefine01 HAVE_VSNPRINTF
+
+/* Define 1 if you have MinGW CD-ROM support */
+#undef HAVE_WIN32_CDROM
+
+/* Define as const if the declaration of iconv() needs const. */
+#define ICONV_CONST @ICONV_CONST@
+
+/* Define 1 if you are compiling using MinGW */
+#undef MINGW32
+
+/* Name of package */
+#define PACKAGE "libcdio"
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#define PACKAGE_NAME "libcdio"
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#define PACKAGE_VERSION 1
+
+/* Define to 1 if you have the ANSI C header files. */
+#define STDC_HEADERS 1
+
+/* Version number of package */
+#define VERSION "1"
+
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name. */
+//#define inline __inline
+
+/* Some parts of libcdio reference alloca(), which isn't portable  */
+#ifdef _MSC_VER
+
+#define alloca  _alloca
+
+#endif // _MSC_VER
+
+#cmakedefine HAVE_STDARG_H
+
+/* Define this <sys/stat.h> defines S_ISLNK(). */
+#cmakedefine HAVE_S_ISLNK
+
+/* Define this <sys/stat.h> defines S_ISSOCK(). */
+#cmakedefine HAVE_S_ISSOCK
+
+/* Define 1 if you want ISO-9660 Rock-Ridge extension support. */
+#cmakedefine01 HAVE_ROCK
+
+/* Define this if you have struct timespec. */
+#cmakedefine HAVE_STRUCT_TIMESPEC
+
+#cmakedefine HAVE_STRNDUP
+
+#cmakedefine HAVE_LIMITS_H
+
+#cmakedefine HAVE_SETENV
+
+#cmakedefine HAVE_UNSETENV
+
+#cmakedefine HAVE_TIMEGM
+
+#cmakedefine HAVE_GMTIME_R
+
+#cmakedefine HAVE_LOCALTIME_R
+
+#cmakedefine HAVE_STRUCT_TM_TM_ZONE
+
+/* Enabling support for large files. */
+#cmakedefine _FILE_OFFSET_BITS 64
+#cmakedefine _LARGEFILE64_SOURCE 1
+
+#define LIBCDIO_CONFIG_H 1

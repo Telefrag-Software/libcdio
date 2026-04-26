@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.5...4.2.1 FATAL_ERROR)
 
 option(LIBCDIO_BUILD_CXX_WRAPPER "Build C++ wrapper library." ON)
+option(LIBCDIO_ENABLE_JOLIET "Enable Joliet support." ON)
+option(LIBCDIO_ENABLE_ROCK "Enable Rock Ridge support." ON)
+
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure.ac" AUTOMAKE_CONTENTS)
 
@@ -139,6 +143,11 @@ set(LIBRARY_SOURCE_FILES
 	lib/driver/mmc/mmc_ll_cmds.c
 	lib/driver/mmc/mmc_private.h
 	lib/driver/mmc/mmc_util.c
+	lib/driver/MSWindows/aspi32.c
+	lib/driver/MSWindows/aspi32.h
+	lib/driver/MSWindows/win32.c
+	lib/driver/MSWindows/win32.h
+	lib/driver/MSWindows/win32_ioctl.c
 	lib/iso9660/iso9660.c
 	lib/iso9660/iso9660_fs.c
 	lib/iso9660/iso9660_private.h
@@ -160,11 +169,12 @@ if(WIN32)
 
 	list(APPEND LIBRARY_SOURCE_FILES
 		.vs/config.h
-		lib/driver/MSWindows/aspi32.c
-		lib/driver/MSWindows/aspi32.h
-		lib/driver/MSWindows/win32.c
-		lib/driver/MSWindows/win32.h
-		lib/driver/MSWindows/win32_ioctl.c
+	)
+else()
+	include(GenerateConfigFile)
+
+	list(APPEND LIBRARY_HEADER_FILES
+		include/cdio/config.h
 	)
 endif()
 
@@ -177,19 +187,20 @@ target_include_directories(${LIBRARY_NAME}
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 	PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/include/cdio
 		${CMAKE_CURRENT_SOURCE_DIR}/lib
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/udf
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/iso9660
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/mmc
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/image
+		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/MSWindows
 )
 
 if(WIN32)
 	target_include_directories(${LIBRARY_NAME}
 		PRIVATE
 			${CMAKE_CURRENT_SOURCE_DIR}/.vs
-			${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/MSWindows
 	)
 endif()
 
@@ -218,6 +229,11 @@ if(WIN32)
 	target_link_libraries(${LIBRARY_NAME}
 		PRIVATE
 			winmm
+	)
+elseif(APPLE OR MINGW)
+	target_link_libraries(${LIBRARY_NAME}
+		PRIVATE
+			iconv
 	)
 endif()
 
@@ -249,6 +265,8 @@ if(LIBCDIO_BUILD_CXX_WRAPPER)
 		PUBLIC
 			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 			$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+		PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/include/cdio
 	)
 
 	if(WIN32)

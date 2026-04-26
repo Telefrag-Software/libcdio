@@ -56,7 +56,7 @@ extern "C" {
     CDIO_DISC_MODE_CD_I         /**< CD-i. */
   } discmode_t;
 
-  const char *discmode2str[];
+  extern const char *discmode2str[];
 
   /**
     Read cdtext information for a cdtext_t object.
