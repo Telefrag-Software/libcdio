@@ -8,6 +8,7 @@
 .deps
 .dirstamp
 include/cdio/version.h
+src/config.h
 /.python-version
 /ChangeLog
 /Makefile

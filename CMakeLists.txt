@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.5...4.2.1 FATAL_ERROR)
 
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 option(LIBCDIO_BUILD_CXX_WRAPPER "Build C++ wrapper library." ON)
+option(LIBCDIO_ENABLE_JOLIET "Enable ISO-9660 Joliet support." ON)
+option(LIBCDIO_ENABLE_ROCK "Enable ISO-9660 Rock Ridge support." ON)
 
 file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure.ac" AUTOMAKE_CONTENTS)
 
@@ -38,17 +42,25 @@ if(NOT GIT_COMMIT_HASH)
 	message(WARNING "Failed to determine Git commit hash.")
 endif()
 
-set(build ${GIT_COMMIT_HASH})
+set(build "${GIT_COMMIT_HASH}")
 
 set(_CDIO_VERSION_HEADER_FILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/cdio/version.h")
 
-configure_file(
-	${_CDIO_VERSION_HEADER_FILE_PATH}.in
-	${_CDIO_VERSION_HEADER_FILE_PATH}
-	@ONLY
-)
+configure_file("${_CDIO_VERSION_HEADER_FILE_PATH}.in" "${_CDIO_VERSION_HEADER_FILE_PATH}" @ONLY)
 
 project(libcdio VERSION ${VERSION} LANGUAGES C CXX)
+
+include(Platform)
+
+if(WIN32)
+	set(_CDIO_CONFIGURATION_HEADER_FILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/.vs/config.h")
+else()
+	include(CheckDependencies)
+
+	set(_CDIO_CONFIGURATION_HEADER_FILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h")
+
+	configure_file("${_CDIO_CONFIGURATION_HEADER_FILE_PATH}.in" "${_CDIO_CONFIGURATION_HEADER_FILE_PATH}" @ONLY)
+endif()
 
 set(LIBRARY_NAME cdio)
 set(WRAPPER_NAME cdio++)
@@ -139,6 +151,11 @@ set(LIBRARY_SOURCE_FILES
 	lib/driver/mmc/mmc_ll_cmds.c
 	lib/driver/mmc/mmc_private.h
 	lib/driver/mmc/mmc_util.c
+	lib/driver/MSWindows/aspi32.c
+	lib/driver/MSWindows/aspi32.h
+	lib/driver/MSWindows/win32.c
+	lib/driver/MSWindows/win32.h
+	lib/driver/MSWindows/win32_ioctl.c
 	lib/iso9660/iso9660.c
 	lib/iso9660/iso9660_fs.c
 	lib/iso9660/iso9660_private.h
@@ -160,11 +177,10 @@ if(WIN32)
 
 	list(APPEND LIBRARY_SOURCE_FILES
 		.vs/config.h
-		lib/driver/MSWindows/aspi32.c
-		lib/driver/MSWindows/aspi32.h
-		lib/driver/MSWindows/win32.c
-		lib/driver/MSWindows/win32.h
-		lib/driver/MSWindows/win32_ioctl.c
+	)
+else()
+	list(APPEND LIBRARY_SOURCE_FILES
+		${_CDIO_CONFIGURATION_HEADER_FILE_PATH}
 	)
 endif()
 
@@ -177,19 +193,21 @@ target_include_directories(${LIBRARY_NAME}
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 	PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/include/cdio
+		${CMAKE_CURRENT_SOURCE_DIR}/src
 		${CMAKE_CURRENT_SOURCE_DIR}/lib
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/udf
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/iso9660
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/mmc
 		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/image
+		${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/MSWindows
 )
 
 if(WIN32)
 	target_include_directories(${LIBRARY_NAME}
 		PRIVATE
 			${CMAKE_CURRENT_SOURCE_DIR}/.vs
-			${CMAKE_CURRENT_SOURCE_DIR}/lib/driver/MSWindows
 	)
 endif()
 
@@ -214,10 +232,49 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
 	C_STANDARD_REQUIRED ON
 )
 
+if(LIBCDIO_ICONV_LIBRARY)
+	target_link_libraries(${LIBRARY_NAME}
+		PRIVATE
+			${LIBCDIO_ICONV_LIBRARY}
+	)
+endif()
+
 if(WIN32)
 	target_link_libraries(${LIBRARY_NAME}
 		PRIVATE
 			winmm
+	)
+elseif(APPLE)
+	find_library(IOKIT_FRAMEWORK NAMES IOKit)
+	find_library(COREFOUNDATION_FRAMEWORK NAMES CoreFoundation)
+	find_library(DISKARBITRATION_FRAMEWORK NAMES DiskArbitration)
+
+	if(IOKIT_FRAMEWORK AND COREFOUNDATION_FRAMEWORK)
+		target_link_libraries(${LIBRARY_NAME}
+			PRIVATE
+				${IOKIT_FRAMEWORK}
+				${COREFOUNDATION_FRAMEWORK}
+		)
+	else()
+		message(FATAL_ERROR "LibCDIO Darwin driver requires IOKit and CoreFoundation.")
+	endif()
+
+	if(DISKARBITRATION_FRAMEWORK AND HAVE_DISKARBITRATION)
+		target_link_libraries(${LIBRARY_NAME}
+			PRIVATE
+				${DISKARBITRATION_FRAMEWORK}
+		)
+	endif()
+elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+	find_library(CAM_LIBRARY cam)
+
+	if(NOT CAM_LIBRARY)
+		message(FATAL_ERROR "FreeBSD LibCDIO support requires LibCam.")
+	endif()
+
+	target_link_libraries(${LIBRARY_NAME}
+		PRIVATE
+			${CAM_LIBRARY}
 	)
 endif()
 
@@ -249,6 +306,9 @@ if(LIBCDIO_BUILD_CXX_WRAPPER)
 		PUBLIC
 			$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 			$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+		PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/include/cdio
+			${CMAKE_CURRENT_SOURCE_DIR}/src
 	)
 
 	if(WIN32)

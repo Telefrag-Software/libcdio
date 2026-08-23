@@ -84,7 +84,7 @@ extern "C" {
     equal to i_blocks.
   */
 
-  CDIO_EXTERN udf_read_sectors (const udf_t *p_udf, void *ptr, 
+  CDIO_EXTERN driver_return_code_t udf_read_sectors (const udf_t *p_udf, void *ptr, 
                                          lsn_t i_start,  long int i_blocks);
 
   /*!
